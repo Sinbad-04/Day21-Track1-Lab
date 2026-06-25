@@ -148,13 +148,15 @@ Fixed fields for all rows: owner = `Trung`; use_case = `DaNang in-trip itinerary
 
 ---
 
-## Gợi ý cho phần nhóm merge sau
+## Đóng góp đã được merge vào phần nhóm
+
+> Phần nhóm chính thức nằm tại [REPORT.md](../REPORT.md), kèm [Scenario Dataset v1](../scenario-dataset-v1.csv). Bảng dưới ghi lại dimension mà Trung đóng góp vào bước chuẩn hóa.
 
 | Thành viên | Dimension 1 | Dimension 2 | Dimension 3 | Ghi chú |
 |---|---|---|---|---|
 | Trung (2A202600702) | In-trip trigger | Time/location pressure | Context/risk quality | Bổ sung last-minute change, Up Next, uncertainty và agency boundary |
 
-Khi merge với dataset của Đạt và Giáp, nhóm nên chuẩn hóa các dimension của Trung vào `feasibility_constraint`, `context_and_risk_level` và thêm một value mới là `in_trip_trigger` hoặc `trip_phase = in_trip`.
+Khi merge với dataset của Đạt và Giáp, nhóm đã chuẩn hóa các dimension của Trung vào `feasibility_constraint`, `context_quality` và `trip_phase = in_trip`.
 
 ---
 

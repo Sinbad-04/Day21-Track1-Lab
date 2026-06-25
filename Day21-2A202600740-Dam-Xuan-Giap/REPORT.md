@@ -113,8 +113,9 @@ Combinations:
 
 ### Bài 5 — Scenario Dataset v0 (24 inputs sau lọc)
 
-Schema: `scenario_id · owner · use_case · combination_id · dimension_values · user_input · style · expected_behavior · why_included · set_type`
-(owner = `Giap`, use_case = `DaNang 1-day itinerary` cho mọi rows)
+Schema: `scenario_id · owner · use_case · quality_question · combination_id · dimension_values · user_input · style · expected_behavior · why_included · set_type`
+
+Fixed fields cho mọi rows: owner = `Giap`; use_case = `DaNang 1-day itinerary`; quality_question = `Agent có tạo được lịch trình 1 ngày khả thi theo thời gian di chuyển, ngân sách, giờ mở cửa và ràng buộc của user không; và khi thiếu hoặc mâu thuẫn thông tin then chốt thì có biết hỏi lại thay vì bịa không?`
 
 | scenario_id | combination_id | dimension_values | user_input | style | expected_behavior | why_included | set_type |
 |---|---|---|---|---|---|---|---|
@@ -155,72 +156,9 @@ Schema: `scenario_id · owner · use_case · combination_id · dimension_values 
 
 ---
 
-## PHẦN B — NHÓM (Scenario Dataset v1) — _điền sau buổi họp nhóm_
+## PHẦN B — NHÓM (Scenario Dataset v1)
 
-> Khung bên dưới theo đúng Bài 6–7 của đề. Mỗi thành viên dán Dataset v0 của mình, sau đó nhóm chuẩn hoá & dedup.
-
-### B1 — Bảng gom dimensions của các thành viên
-
-| Thành viên | Dimension 1 | Dimension 2 | Dimension 3 | Ghi chú |
-|---|---|---|---|---|
-| Giáp (2A202600740) | Persona/nhóm đi | Ràng buộc cứng | Độ đầy đủ context | _đã có_ |
-| Đạt (2A202600818) | _điền_ | _điền_ | _điền_ | _điền_ |
-| Trung (2A202600702) | _điền_ | _điền_ | _điền_ | _điền_ |
-
-### B2 — Chuẩn hoá dimensions (Step 2)
-
-| Cách gọi khác nhau của các thành viên | Chuẩn hoá thành |
-|---|---|
-| persona / nhóm đi / loại khách | `traveler_profile` |
-| ràng buộc cứng / constraint / điều kiện | `hard_constraint` |
-| độ đầy đủ context / thiếu info / mức rõ ràng | `context_completeness` |
-| _(bổ sung từ Đạt/Trung)_ | _điền_ |
-
-→ Nhóm chốt **≥3 dimensions chính** cho v1: `traveler_profile`, `hard_constraint`, `context_completeness` _(điều chỉnh nếu cần)_.
-
-### B3 — Danh sách merge / dedup decisions (Step 3)
-
-| Rows liên quan | Quyết định (kept / merged / rewritten) | Lý do |
-|---|---|---|
-| _điền_ | _điền_ | _điền_ |
-
-### B4 — Coverage matrix (Step 4)
-
-| Slice / value | Số rows hiện có | Đủ chưa? | Ghi chú |
-|---|---|---|---|
-| budget chặt | _điền_ | | |
-| thời tiết mưa | _điền_ | | |
-| thiếu context | _điền_ | | |
-| mâu thuẫn info | _điền_ | | |
-| high-risk / vượt quyền | _điền_ | | |
-| ambiguous input | _điền_ | | |
-| ràng buộc di chuyển / sức khoẻ | _điền_ | | |
-
-### B5 — Scenario Dataset v1 (≥30 rows) — schema
-
-`scenario_id (G01…) · source_owner · use_case · quality_question · dimension_values · user_input · expected_behavior · risk_if_fail · why_included · set_type · merge_decision`
-
-| scenario_id | source_owner | dimension_values | user_input | expected_behavior | risk_if_fail | set_type | merge_decision |
-|---|---|---|---|---|---|---|---|
-| G01 | _điền_ | | | | | | |
-| … | | | | | | | |
-
-> Yêu cầu final set: ≥30 rows · ≥2 ambiguous/missing-context · ≥2 high-risk · ≥2 case dễ chọn sai action · đa dạng cách diễn đạt (ngắn/dài/thiếu context/cảm xúc/mixed language).
-
-### B6 — Group coverage review
-
-| Câu hỏi | Trả lời |
-|---|---|
-| Dataset v1 cover tốt slice nào? | _điền_ |
-| Slice nào còn thiếu/yếu? | _điền_ |
-| Có over-sample happy path không? | _điền_ |
-| Row high-risk nào chưa rõ expected behavior? | _điền_ |
-| AI generation bóp méo combination ở đâu? | _điền_ |
-| Nếu chỉ chạy 1 batch nhỏ đầu tiên, chọn rows nào? Vì sao? | _điền_ |
-
-### B7 — Handoff note (cho bước chạy agent sau)
-
-> Gợi ý (nhóm chỉnh lại): Khi chạy agent, ưu tiên các rows **high-risk** về vượt quyền (đòi tự đặt vé — A19/A20) và **mâu thuẫn ràng buộc** (budget 500k đòi 5★ — A09/A10; mưa đòi tắm biển — A23/A24), vì đây là nơi agent dễ hứa bậy hoặc bịa. Dự đoán failure chính: `missing_clarification` (không hỏi lại khi thiếu giờ/số người), `infeasible_plan` (chồng giờ, vượt budget), `unauthorized_action` (tự đặt chỗ), `hallucinated_hours` (bịa giờ mở cửa). Các tiêu chí này có thể thành trace code sau khi đọc traces.
+Phần nhóm đã hoàn tất tại [REPORT.md](../REPORT.md), kèm [Scenario Dataset v1](../scenario-dataset-v1.csv) và [kịch bản demo](../DAY21-DEMO-SCRIPT.md).
 
 ---
 
@@ -235,4 +173,4 @@ Schema: `scenario_id · owner · use_case · combination_id · dimension_values 
 - [x] ≥20 user inputs sau lọc (24)
 - [x] Scenario Dataset v0 cá nhân
 - [x] Coverage note cá nhân
-- [ ] _Phần nhóm (B1–B7) — hoàn thành sau buổi họp_
+- [x] Phần nhóm đã hoàn thành trong `../REPORT.md`

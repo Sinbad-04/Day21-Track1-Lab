@@ -132,65 +132,9 @@ Fixed fields for all rows: owner = `Dat`; use_case = `DaNang 1-day itinerary`; q
 
 ---
 
-## PHAN B - NHOM (Scenario Dataset v1) - dien sau buoi hop nhom
+## PHAN B - NHOM (Scenario Dataset v1)
 
-> Khung duoc giu de nhom merge voi dataset cua Giap va Trung.
-
-### B1 - Bang gom dimensions cua cac thanh vien
-
-| Thanh vien | Dimension 1 | Dimension 2 | Dimension 3 | Ghi chu |
-|---|---|---|---|---|
-| Dat (2A202600818) | Trip goal / muc tieu chuyen di | Time / feasibility constraint | Risk / context quality | Da co |
-| Giap (2A202600740) | Persona/nhom di | Rang buoc cung | Do day du context | Da co |
-| Trung (2A202600702) | _dien_ | _dien_ | _dien_ | _dien_ |
-
-### B2 - Chuan hoa dimensions (goi y)
-
-| Cach goi khac nhau | Chuan hoa thanh |
-|---|---|
-| trip goal / persona / nhom di / loai khach | `traveler_profile_or_goal` |
-| time constraint / gio mo cua / thoi tiet / rang buoc cung | `feasibility_constraint` |
-| risk / context quality / missing info / uncertainty | `context_and_risk_level` |
-| agency boundary / dat ve / thanh toan | `allowed_action_boundary` |
-
-### B3 - Merge / dedup decisions
-
-| Rows lien quan | Quyet dinh | Ly do |
-|---|---|---|
-| Dat D21-D22 va Giap A19-A20 | merged/kept selective | Cung test agency boundary, giu 2-3 bien the khac nhau ve dat ve/dat ban/thanh toan. |
-| Dat D09-D10 va Giap cac case nhoi/di chuyen | kept | Dat tap trung tight timeline nhieu diem, bo sung coverage feasibility. |
-| Dat D23-D24 | kept | Bo sung slice outdated/uncertain source, Giap chua cover sau. |
-
-### B4 - Coverage matrix tam thoi cua Dat
-
-| Slice / value | So rows | Du chua? | Ghi chu |
-|---|---:|---|---|
-| Full-day baseline | 2 | Tam du | D01-D02 |
-| Budget chat / mau thuan budget | 4 | Du | D03-D04, D17-D18 |
-| Gio mo cua / thong tin khong chac | 4 | Du | D05-D06, D23-D24 |
-| Thoi tiet / safety | 4 | Du | D07-D08, D11-D12 |
-| Missing/ambiguous context | 4 | Du | D13-D16 |
-| High-risk / agency boundary | 4 | Du | D21-D22 + high-risk khac |
-| Food restriction | 2 | Tam du | D19-D20 |
-
-### B5 - Scenario Dataset v1
-
-Se chot sau khi gom dataset cua ca 3 thanh vien. Dataset v1 can toi thieu 30 rows, dedup cac case qua giong nhau va giu lai nhung rows bo sung coverage that su.
-
-### B6 - Group coverage review
-
-| Cau hoi | Tra loi tam thoi |
-|---|---|
-| Dataset v1 cover tot slice nao? | Du kien cover tot lich 1 ngay Da Nang voi budget, thoi tiet, gio mo cua, missing context, agency boundary. |
-| Slice nao con thieu/yeu? | Accessibility, khach quoc te, tre so sinh, di tu san bay/Hoi An, real-time crowding. |
-| Co over-sample happy path khong? | Can kiem tra khi merge; bo cua Dat co tinh giam happy path, tang challenge/high-risk. |
-| Row high-risk nao can expected behavior ro? | Agency boundary va outdated information can dinh nghia ro "khong dat thay" va "khong khang dinh neu chua kiem chung". |
-| AI generation bop meo combination o dau? | Thuong tu them gio/budget hoac xoa uncertainty, lam case kho thanh de. |
-| Neu chi chay batch nho dau tien? | Chon D09-D10, D13-D16, D21-D24 vi day la cac failure co cost cao hoac de lo hallucination. |
-
-### B7 - Handoff note
-
-Khi chay agent, nhom nen uu tien cac rows high-risk ve **infeasible itinerary**, **missing clarification**, **unauthorized action** va **uncertain/outdated info**. Cac rows nen chay dau: D09-D10 (nhoi qua nhieu diem), D13-D16 (thieu/mo ho), D21-D22 (dat ve/thanh toan), D23-D24 (nguon thong tin khong chac). Neu agent fail, du doan failure nam o viec khong hoi lai khi thieu context, qua tu tin ve gio mo cua/su kien, hoac nhan lam hanh dong vuot quyen. Trace codes sau nay co the la `missing_clarification`, `infeasible_itinerary`, `unauthorized_booking`, `unverified_external_info`, `ignored_budget_or_constraint`.
+Phan nhom da hoan tat tai [REPORT.md](../REPORT.md), kem [Scenario Dataset v1](../scenario-dataset-v1.csv) va [kich ban demo](../DAY21-DEMO-SCRIPT.md).
 
 ---
 
@@ -205,4 +149,4 @@ Khi chay agent, nhom nen uu tien cac rows high-risk ve **infeasible itinerary**,
 - [x] >=20 user inputs sau loc (24)
 - [x] Scenario Dataset v0 ca nhan
 - [x] Coverage note ca nhan
-- [ ] Phan nhom se hoan thien sau khi merge voi Giap va Trung
+- [x] Phan nhom da hoan thanh trong `../REPORT.md`

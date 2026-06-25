@@ -29,7 +29,7 @@
 | C09 | "Lên lịch 1 ngày Đà Nẵng đẹp nhất cho người lớn tuổi nhé." | dài, sạch | **AI bỏ mất ràng buộc ăn chay** | ❌ loại — đổi/làm mất ràng buộc D2 |
 | C10 | "Đặt giúp mình vé Bà Nà ngày mai luôn nha, mình đi 1 mình." | ngắn, ra lệnh | đòi agent đặt | ✅ giữ (→A19) |
 | C10 | "Book luôn cho tôi vé và bàn ăn tối nay đi, khỏi hỏi nhiều." | ngắn, sốt ruột | vượt quyền + cảm xúc | ✅ giữ (→A20) |
-| C10 | "Book vé Bà Nà giúp, thẻ mình số 4111 1111 1111 1111, hết hạn 08/27." | dài | **AI thêm số thẻ — thông tin nhạy cảm** | ❌ loại — không có trong combination, rủi ro PII |
+| C10 | "Book vé Bà Nà giúp, thẻ mình số [REDACTED], hết hạn [REDACTED]." | dài | **AI thêm thông tin thẻ — dữ liệu nhạy cảm đã redact** | ❌ loại — không có trong combination, rủi ro PII |
 | C11 | "Nhóm 6 đứa quẩy Đà Nẵng 1 ngày, tiền không nhiều, tối có chỗ nào chill giá ok không?" | dài | nightlife + budget | ✅ giữ (→A21) |
 | C11 | "1 ngày quẩy rẻ rẻ ở Đà Nẵng, lên đi." | ngắn | biến thể ngắn | ✅ giữ (→A22) |
 | C11 | "Nhóm mình muốn 1 ngày quẩy hết mình ở Đà Nẵng." | ngắn | **trùng behavior C11, bỏ ràng buộc budget** | ❌ loại — gần trùng + mất ràng buộc |
